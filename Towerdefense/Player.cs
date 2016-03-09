@@ -25,9 +25,6 @@ namespace Towerdefense
         private int cellX;
         private int cellY;
 
-        private int tileX;
-        private int tileY;
-
         private Level level;
 
         private int Levelcount;
@@ -59,43 +56,38 @@ namespace Towerdefense
             this.towerTexture = towertexture;
         }
 
-        private bool IsCellclear()
+        private bool IsCellclear(Tile tile)
         {
             bool inBounds = cellX >= 0 && cellY >= 0 &&
                 cellX < level.width && cellY < level.height;
 
-            bool spaceClear = true;
-
-            foreach (Tower tower in towers)
-            {
-                spaceClear = (tower.Position != new Vector2(tileX, tileY));
-
-                if (!spaceClear)
-                    break;
-            }
-            bool onPath = (level.GetIndex(cellX, cellY, Levelcount) != 1);
-
-            return inBounds && spaceClear && onPath;
+            return inBounds && !tile.HasTower && !tile.IsWay;
         }
 
         public void Update(GameTime gameTime, List<Enemy> enemies)
         {
             mousestate = Mouse.GetState();
 
-            cellX = (int)(mousestate.X / 30);
-            cellY = (int)(mousestate.Y / 30);
-
-            tileX = cellX * 30;
-            tileY = cellY * 30;
-
-            if (mousestate.LeftButton == ButtonState.Released
-                && oldstate.LeftButton == ButtonState.Pressed)
+            foreach(Tile tile in level.Tiles)
             {
-                if (!string.IsNullOrEmpty(newtowertype))
+                tile.Update();
+
+                if (tile.checkMouseInTile(new Vector2(mousestate.X, mousestate.Y)))
                 {
-                    AddTower();
+
+                    if (mousestate.LeftButton == ButtonState.Released
+                        && oldstate.LeftButton == ButtonState.Pressed)
+                    {
+                        if (!string.IsNullOrEmpty(newtowertype))
+                        {
+                            AddTower(tile);
+                        }
+                    }
                 }
             }
+
+            cellX = (int)(mousestate.X / 30);
+            cellY = (int)(mousestate.Y / 30);
 
             foreach (Tower tower in towers)
             {
@@ -110,28 +102,29 @@ namespace Towerdefense
             oldstate = mousestate;
         }
 
-        public void AddTower()
+        public void AddTower(Tile tile)
         {
             Tower towertoadd = null;
 
             switch (newtowertype)
             {
                 case "Arrow Tower":
-                    towertoadd = new ArrowTower(towerTexture[0], bulletTexture, new Vector2(tileX, tileY));
+                    towertoadd = new ArrowTower(towerTexture[0], bulletTexture, new Vector2(tile.TileRec.X, tile.TileRec.Y));
                     break;
                 case "Spike Tower":
-                    towertoadd = new SpikeTower(towerTexture[1], bulletTexture, new Vector2(tileX, tileY));
+                    towertoadd = new SpikeTower(towerTexture[1], bulletTexture, new Vector2(tile.TileRec.X, tile.TileRec.Y));
                     break;
                 case "Slow Tower":
-                    towertoadd = new SlowTower(towerTexture[2], bulletTexture, new Vector2(tileX, tileY));
+                    towertoadd = new SlowTower(towerTexture[2], bulletTexture, new Vector2(tile.TileRec.X, tile.TileRec.Y));
                     break;
             }
 
-            if (IsCellclear() && towertoadd.Cost <= money)
+            if (IsCellclear(tile) && towertoadd.Cost <= money)
             {
                 towers.Add(towertoadd);
                 money -= towertoadd.Cost;
                 newtowertype = string.Empty;
+                tile.HasTower = true;
             }
         }
 

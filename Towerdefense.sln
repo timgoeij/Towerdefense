@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towerdefense", "Towerdefense\Towerdefense.csproj", "{BC72C77E-AED3-4CEE-B218-A4DC42C5831A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Towerdefense", "Towerdefense\Towerdefense.csproj", "{997E1088-09C9-463C-B0D8-C3A186696C45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BC72C77E-AED3-4CEE-B218-A4DC42C5831A}.Debug|x86.ActiveCfg = Debug|x86
-		{BC72C77E-AED3-4CEE-B218-A4DC42C5831A}.Debug|x86.Build.0 = Debug|x86
-		{BC72C77E-AED3-4CEE-B218-A4DC42C5831A}.Release|x86.ActiveCfg = Release|x86
-		{BC72C77E-AED3-4CEE-B218-A4DC42C5831A}.Release|x86.Build.0 = Release|x86
+		{997E1088-09C9-463C-B0D8-C3A186696C45}.Debug|x86.ActiveCfg = Debug|x86
+		{997E1088-09C9-463C-B0D8-C3A186696C45}.Debug|x86.Build.0 = Debug|x86
+		{997E1088-09C9-463C-B0D8-C3A186696C45}.Release|x86.ActiveCfg = Release|x86
+		{997E1088-09C9-463C-B0D8-C3A186696C45}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

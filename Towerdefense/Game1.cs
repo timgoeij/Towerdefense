@@ -36,8 +36,6 @@ namespace Towerdefense
         Texture2D water;
         Texture2D healthtexture;
 
-        bool getTex = true;
-
         enum GameState { Menu, Level1, Level2, Level3, GameOver };
 
         GameState currentState = GameState.Menu;
@@ -164,19 +162,24 @@ namespace Towerdefense
                 {
                     if (menu.levelcount == 0)
                     {
+                        level.AddTexture(grass, way);
                         currentState = GameState.Level1; player = new Player(level, menu.levelcount, bullettexture, towertexture);
                         wavemanager = new WaveManager(level, 20, Enemytexture, menu.levelcount, player, healthtexture);
                     }
                     else if (menu.levelcount == 1)
                     {
+                        level.AddTexture(ground, waymap2);
                         currentState = GameState.Level2; player = new Player(level, menu.levelcount, bullettexture, towertexture);
                         wavemanager = new WaveManager(level, 25, Enemytexture, menu.levelcount, player, healthtexture);
                     }
                     else if (menu.levelcount == 2)
                     {
+                        level.AddTexture(water, sand);
                         currentState = GameState.Level3; player = new Player(level, menu.levelcount, bullettexture, towertexture);
                         wavemanager = new WaveManager(level, 30, Enemytexture, menu.levelcount, player, healthtexture);
                     }
+
+                    level.initLevel(menu.levelcount);
                 }
             }
             else if (currentState == GameState.Level1)
@@ -209,7 +212,12 @@ namespace Towerdefense
                     slowbutton.Update(gameTime);
                 }
                 else
-                { gameover.State = GameOver.state.Level2; currentState = GameState.GameOver; }
+                {
+                    gameover.State = GameOver.state.Level2;
+                    gameover.getround = wavemanager.Round;
+                    gameover.lives = player.Lives;
+                    gameover.money = player.Money;
+                    currentState = GameState.GameOver; }
             }
             else if (currentState == GameState.Level3)
             {
@@ -222,7 +230,12 @@ namespace Towerdefense
                     slowbutton.Update(gameTime);
                 }
                 else
-                { gameover.State = GameOver.state.Level3; currentState = GameState.GameOver; }
+                {
+                    gameover.State = GameOver.state.Level3;
+                    gameover.getround = wavemanager.Round;
+                    gameover.lives = player.Lives;
+                    gameover.money = player.Money;
+                    currentState = GameState.GameOver; }
             }
             else if (currentState == GameState.GameOver)
             {
@@ -231,7 +244,6 @@ namespace Towerdefense
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
                     level.maptextures = new List<Texture2D>();
-                    getTex = true;
                     currentState = GameState.Menu;
                 }
             }
@@ -251,46 +263,21 @@ namespace Towerdefense
 
             if (currentState == GameState.Menu)
                 menu.drawbackground();
-            else if (currentState == GameState.Level1)
-            {
-                if (getTex)
-                { level.AddTexture(grass); level.AddTexture(way); getTex = false; }
-                level.drawmap1(spriteBatch);
-                wavemanager.Draw(spriteBatch);
-                player.Draw(spriteBatch);
-                toolbar.Draw(spriteBatch, player);
-                arrowbutton.Draw(spriteBatch);
-                spikebutton.Draw(spriteBatch);
-                slowbutton.Draw(spriteBatch);
-            }
-            else if (currentState == GameState.Level2)
-            {
-                if (getTex)
-                { level.AddTexture(waymap2); level.AddTexture(ground); getTex = false; }
-                level.drawmap2(spriteBatch);
-                wavemanager.Draw(spriteBatch);
-                player.Draw(spriteBatch);
-                toolbar.Draw(spriteBatch, player);
-                arrowbutton.Draw(spriteBatch);
-                spikebutton.Draw(spriteBatch);
-                slowbutton.Draw(spriteBatch);
-            }
-            else if (currentState == GameState.Level3)
-            {
-                if (getTex)
-                { level.AddTexture(water); level.AddTexture(sand); getTex = false; }
-                level.drawmap3(spriteBatch);
-                wavemanager.Draw(spriteBatch);
-                player.Draw(spriteBatch);
-                toolbar.Draw(spriteBatch, player);
-                arrowbutton.Draw(spriteBatch);
-                spikebutton.Draw(spriteBatch);
-                slowbutton.Draw(spriteBatch);
-            }
             else if (currentState == GameState.GameOver)
             {
                 gameover.Drawback();
             }
+            else
+            {
+                level.Draw(spriteBatch);
+                wavemanager.Draw(spriteBatch);
+                player.Draw(spriteBatch);
+                toolbar.Draw(spriteBatch, player);
+                arrowbutton.Draw(spriteBatch);
+                spikebutton.Draw(spriteBatch);
+                slowbutton.Draw(spriteBatch);
+            }
+          
             spriteBatch.End();
 
             base.Draw(gameTime);

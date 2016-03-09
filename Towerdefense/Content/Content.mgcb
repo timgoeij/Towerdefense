@@ -261,17 +261,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
-#begin health bar.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:health bar.png
-
 #begin backgrounds.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -282,6 +271,17 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:backgrounds.jpg
+
+#begin health bar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:health bar.png
 
 #begin Level1.PNG
 /importer:TextureImporter

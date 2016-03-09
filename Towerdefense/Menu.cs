@@ -74,12 +74,12 @@ namespace Towerdefense
             levels.Add(level2);
             levels.Add(level3);
 
-            buttontext[Level1button] = Game.Content.Load<Texture2D>("Menu\\Level1");
-            buttontext[Level2button] = Game.Content.Load<Texture2D>("Menu\\Level2");
-            buttontext[Level3button] = Game.Content.Load<Texture2D>("Menu\\Level3");
+            buttontext[Level1button] = Game.Content.Load<Texture2D>("Level1");
+            buttontext[Level2button] = Game.Content.Load<Texture2D>("Level2");
+            buttontext[Level3button] = Game.Content.Load<Texture2D>("Level3");
 
 
-            background = Game.Content.Load<Texture2D>("Menu\\backgrounds");
+            background = Game.Content.Load<Texture2D>("backgrounds");
 
             base.LoadContent();
         }

@@ -66,13 +66,13 @@ namespace Towerdefense
         {
             if (levelcount == 0)
             {
-                Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap1.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)random.NextDouble());
+                Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap1.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)(random.NextDouble() + 0.25));
                 enemy.setWaypoints(level.WaypointsMap1);
                 enemies.Add(enemy);
             }
             else if (levelcount == 1)
             {
-                Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap2.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)random.NextDouble());
+                Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap2.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)(random.NextDouble() + 0.25));
                 enemy.setWaypoints(level.WaypointsMap2);
                 enemies.Add(enemy);
             }
@@ -82,13 +82,13 @@ namespace Towerdefense
 
                 if (kies == 0)
                 {
-                    Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap31.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)random.NextDouble());
+                    Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap31.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)(random.NextDouble() + 0.25));
                     enemy.setWaypoints(level.WaypointsMap31);
                     enemies.Add(enemy);
                 }
                 else if (kies == 1)
                 {
-                    Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap32.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)random.NextDouble());
+                    Enemy enemy = new Enemy(enemyTexture[random.Next(5)], level.WaypointsMap32.Peek(), 50 + (float)random.NextDouble() * 100, 1, (float)(random.NextDouble() + 0.25));
                     enemy.setWaypoints(level.WaypointsMap32);
                     enemies.Add(enemy);
                 }

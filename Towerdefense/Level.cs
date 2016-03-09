@@ -15,13 +15,32 @@ namespace Towerdefense
         private Queue<Vector2> waypointsMap31 = new Queue<Vector2>();
         private Queue<Vector2> waypointsMap32 = new Queue<Vector2>();
 
+        private List<Tile> tiles = new List<Tile>();
+
+        public List<Tile> Tiles
+        {
+            get { return tiles; }
+        }
+
         #region maps
         int[,] map = new int[,]
         {
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, 
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, 
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, 
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, 
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, 
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}, 
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, 
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, 
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, 
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         };
 
         int[,] map2 = new int[,]
@@ -128,61 +147,45 @@ namespace Towerdefense
             #endregion
         }
 
-        public void AddTexture(Texture2D texture)
+        public void AddTexture(Texture2D field, Texture2D way)
         {
-            maptextures.Add(texture);
+            maptextures.Add(field);
+            maptextures.Add(way);
         }
 
-        public void drawmap1(SpriteBatch spritebatch)
+        public void initLevel(int levelCount)
         {
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    int textureindex = map[y, x];
+                    int textureindex = 0;
+
+                    switch(levelCount)
+                    {
+                        case 0: textureindex = map[y, x];
+                            break; 
+                        case 1: textureindex = map2[y, x];
+                            break;
+                        case 2: textureindex = map3[y, x];
+                            break;
+                    }
 
                     if (textureindex == -1)
                         continue;
 
                     Texture2D texture = maptextures[textureindex];
 
-                    spritebatch.Draw(texture, new Rectangle(x * 30, y * 30, 30, 30), Color.White);
+                    Tile tile = new Tile(texture, (textureindex == 1), new Vector2(x * 30, y * 30));
+                    tiles.Add(tile);
                 }
             }
         }
-        public void drawmap2(SpriteBatch spritebatch)
+
+        public void Draw(SpriteBatch spritebatch)
         {
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    int textureindex = map2[y, x];
-
-                    if (textureindex == -1)
-                        continue;
-
-                    Texture2D texture = maptextures[textureindex];
-
-                    spritebatch.Draw(texture, new Rectangle(x * 30, y * 30, 30, 30), Color.White);
-                }
-            }
-        }
-        public void drawmap3(SpriteBatch spritebatch)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    int textureindex = map3[y, x];
-
-                    if (textureindex == -1)
-                        continue;
-
-                    Texture2D texture = maptextures[textureindex];
-
-                    spritebatch.Draw(texture, new Rectangle(x * 30, y * 30, 30, 30), Color.White);
-                }
-            }
+            foreach (Tile tile in tiles)
+                tile.Draw(spritebatch);
         }
     }
 }
